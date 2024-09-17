@@ -1,0 +1,51 @@
+/* Custom Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  /* Hide it to the left initially */
+  height: 100%;
+  width: 250px;
+  background-color: #333;
+  z-index: 9999;
+  transition: left 0.4s ease;
+}
+
+.sidebar.collapse.show {
+  left: 0;
+  /* Slide in from the left */
+}
+
+.sidebar .nav-link {
+  padding: 10px;
+  display: block;
+  color: #fff;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #333;
+  color: #ff6600;
+}
+
+/* Custom Navbar Toggler Button */
+.navbar-toggler {
+  z-index: 10000;
+  /* Ensures it's above other elements */
+}
+
+/* Custom active link styles */
+.active {
+  color: #ff6600 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    left: -100%;
+  }
+
+  .sidebar.collapse.show {
+    left: 0;
+  }
+}

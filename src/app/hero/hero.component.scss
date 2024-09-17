@@ -1,0 +1,60 @@
+/* Dark Hero Section */
+.hero-section {
+  background-color: #343a40;
+  /* Dark background */
+  padding: 60px 0;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f8f9fa;
+  /* Light text */
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #dcdcdc;
+  /* Muted text for contrast */
+}
+
+.btn-warning {
+  background-color: #ffcc00;
+  border: none;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.2rem;
+}
+
+.card h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Card Colors for Dark Theme */
+.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+  color: #343a40 !important;
+  /* Dark text on light background */
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+}

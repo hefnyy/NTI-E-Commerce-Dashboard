@@ -1,0 +1,43 @@
+<br><br><br>
+<div class="w-50 mt-5 m-auto shadow-lg p-5 bg-dark rounded-3 text-white">
+  <h1 class="text-center mb-4">Add Subcategory</h1>
+
+  <form [formGroup]="subcategoryForm" (ngSubmit)="createSubcategory(subcategoryForm)">
+    <!-- Category Name Input -->
+    <div class="mb-4">
+      <label for="subcategoryName" class="form-label">Subcategory Name</label>
+      <input id="subcategoryName" formControlName="name" class="form-control bg-dark text-white border-secondary"
+        type="text" placeholder="Enter Subcategory Name">
+
+      <!-- Validation Error for Name Field -->
+      @if(subcategoryForm.get('name')?.errors!==null&&subcategoryForm.get('name')?.touched){
+      <div class="mt-2">
+        @if(subcategoryForm.get('name')?.errors?.['required']){
+        <p class="text-danger">Category Name is Required</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="p-3">
+      <select formControlName="category"class="w-100% form-select bg-dark text-white border-secondary" aria-label="Default select example">
+        <option disabled selected>Choose Category</option>
+        @for(category of categories; track category._id){
+        <option [value]="category._id">{{category.name}}</option>
+        }
+      </select>
+    </div>
+    <!-- Error Message for Category Creation -->
+    @if(subcategoryError!==''){
+    <div class="text-danger mt-3">
+      <p>{{subcategoryError}}</p>
+    </div>
+    }
+
+    <!-- Form Buttons -->
+    <div class="mt-4 d-flex justify-content-center">
+      <button class="btn btn-success px-4 py-2 me-3">Create</button>
+      <a routerLink="/subcategories" class="btn btn-outline-danger px-4 py-2">Cancel</a>
+    </div>
+  </form>
+</div>
+<br><br><br>

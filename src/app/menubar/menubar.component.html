@@ -1,0 +1,59 @@
+
+<div class="sidebar collapse " id="navbarToggleExternalContent">
+
+  <div class="p-4">
+ 
+  
+    
+    <ul class="navbar-nav text-white">
+   
+          <div><h6>.</h6>
+            <h5 class="text-white ">            Menu Bar</h5>
+          </div>
+     
+      <li class="nav-item">
+        
+        <a class="nav-link text-white" routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/categories" routerLinkActive="active">Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/subcategories" routerLinkActive="active">Subcategories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/products" routerLinkActive="active">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/coupons" routerLinkActive="active">Coupons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/orders" routerLinkActive="active">Orders</a>
+      </li>
+      
+      <!-- Conditionally show Users option for managers -->
+      @if(user.role === 'manager') {
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/users" routerLinkActive="active">Users</a>
+      </li>
+      }
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/profile" routerLinkActive="active">Profile</a>
+      </li>
+      <li class="nav-item">
+        <button (click)="logout()" class="nav-link text-white">Logout</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Navbar with toggle button -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent"
+      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>

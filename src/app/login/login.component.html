@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+
+    <!-- Image Column -->
+    <div class="col-md-6 d-none d-md-block">
+      <img [src]="logo" alt="Login Image" style="width: 100%; height: auto; border-radius: 10px;">
+    </div>
+
+    <!-- Login Form Column -->
+    <div class="col-md-6">
+      <div style="max-width: 400px; margin: 0 auto; padding: 20px; background-color: #d3d3d3; border-radius: 10px;">
+        <h1 style="text-align: center; margin-bottom: 20px;">Login</h1>
+
+        <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+          <!-- Email -->
+          <div style="margin-bottom: 15px;">
+            <label>Email</label>
+            <input formControlName="email"
+              style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            @if (loginForm.get('email')?.errors && loginForm.get('email')?.touched) {
+            <div class="text-danger">
+              @if(loginForm.get('email')?.errors?.['required']) {
+              <p class="text-danger">Email is required</p>
+              }
+              @if(loginForm.get('email')?.errors?.['email']){
+              <p>Invalid Email</p>
+              }
+            </div>}
+            @if(invalidLogin!==''){
+            <p class="text-danger text-center">{{invalidLogin}}</p>
+            }
+          </div>
+
+
+          <!-- Password -->
+          <div style="margin-bottom: 15px;">
+            <label>Password</label>
+            <input formControlName="password" type="password"
+              style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+            <div class="text-danger">
+              @if(loginForm.get('password')?.errors?.['required']) {
+              <p class="text-danger">Password is required</p>
+              }
+              @if(loginForm.get('password')?.errors?.['minlength'] || loginForm.get('password')?.errors?.['maxlength']){
+              <p>Password length must be between 6,20</p>
+              }
+            </div>}
+
+          </div>
+          <a class="text-center" [routerLink]="['/forgetmypassword']" style="color:#3528a7;">forget my password</a>
+          <h1></h1>
+
+          <!-- Submit Button -->
+          <button [disabled]="loginForm.invalid" class="btn text-center"
+            style="width: 100% ;background-color: #3528a7; color: white; border: none; padding: 10px; border-radius: 5px;">
+            Login
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

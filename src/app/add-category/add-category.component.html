@@ -1,0 +1,36 @@
+<br><br><br>
+<div class="w-50 mt-5 m-auto shadow-lg p-5 bg-dark rounded-3 text-white">
+  <h1 class="text-center mb-4">Add Category</h1>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="createCategory(categoryForm)">
+    <!-- Category Name Input -->
+    <div class="mb-4">
+      <label for="categoryName" class="form-label">Category Name</label>
+      <input id="categoryName" formControlName="name" class="form-control bg-dark text-white border-secondary"
+        type="text" placeholder="Enter Category Name">
+
+      <!-- Validation Error for Name Field -->
+      @if(categoryForm.get('name')?.errors!==null&&categoryForm.get('name')?.touched){
+      <div class="mt-2">
+        @if(categoryForm.get('name')?.errors?.['required']){
+        <p class="text-danger">Category Name is Required</p>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- Error Message for Category Creation -->
+    @if(categoryError!==''){
+    <div class="text-danger mt-3">
+      <p>{{categoryError}}</p>
+    </div>
+    }
+
+    <!-- Form Buttons -->
+    <div class="mt-4 d-flex justify-content-center">
+      <button class="btn btn-success px-4 py-2 me-3">Create</button>
+      <a routerLink="/categories" class="btn btn-outline-danger px-4 py-2">Cancel</a>
+    </div>
+  </form>
+</div>
+<br><br><br>

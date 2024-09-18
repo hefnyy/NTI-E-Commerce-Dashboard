@@ -1,0 +1,76 @@
+<br>
+<div class="container mt-5">
+  <div class=" w-75 m-auto shadow-lg p-5 bg-light rounded">
+    <h1 class="text-center mb-4 text-dark">Add New Product</h1>
+
+    <!-- Product Name Input -->
+    <div class="mb-4">
+      <label for="productName" class="form-label">Product Name</label>
+      <input id="productName" class="form-control" type="text" (change)="this.getName=name.value" #name
+        placeholder="Enter product name">
+    </div>
+
+    <!-- Description Input -->
+    <div class="mb-4">
+      <label for="description" class="form-label">Product Description</label>
+      <textarea id="description" class="form-control" (change)="this.getDescription=description.value" #description
+        placeholder="Write product description here"></textarea>
+    </div>
+
+    <!-- Category Selection -->
+    <div class="mb-4">
+      <label for="categorySelect" class="form-label">Choose Category</label>
+      <select id="categorySelect" class="form-select" (change)="getAllSubcategories(category.value)" #category>
+        <option disabled selected>Choose a category</option>
+        @for(category of categories; track category._id){
+        <option [value]="category._id">{{category.name}}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Subcategory Selection -->
+    <div class="mb-4">
+      <label for="subcategorySelect" class="form-label">Choose Subcategory</label>
+      <select id="subcategorySelect" class="form-select" (change)="this.getSubcategory=subcategory.value" #subcategory>
+        <option disabled selected>Choose a subcategory</option>
+        @for(subcategory of subcategories; track subcategory._id){
+        <option [value]="subcategory._id">{{subcategory.name}}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Price and Quantity Inputs -->
+    <div class="mb-4 d-flex justify-content-between">
+      <div class="w-45">
+        <label for="priceInput" class="form-label">Product Price</label>
+        <input id="priceInput" class="form-control" type="number" (change)="this.getPrice=price.value" #price
+          placeholder="Price">
+      </div>
+      <div class="w-45">
+        <label for="quantityInput" class="form-label">Product Quantity</label>
+        <input id="quantityInput" class="form-control" type="number" (change)="this.getQuantity=quantity.value"
+          #quantity placeholder="Quantity">
+      </div>
+    </div>
+
+    <!-- File Upload Inputs -->
+    <div class="mb-4 d-flex justify-content-between">
+      <div class="w-45">
+        <label for="coverImage" class="form-label">Product Cover Image</label>
+        <input id="coverImage" class="form-control" (change)="setCover($event)" type="file" accept="image/*">
+      </div>
+      <div class="w-45">
+        <label for="productImages" class="form-label">Additional Product Images</label>
+        <input id="productImages" class="form-control" (change)="setImages($event)" type="file" accept="image/*"
+          multiple>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-4 d-flex justify-content-between">
+      <button (click)="createProduct()" class="btn btn-success me-2">Create</button>
+      <a routerLink="/products" class="btn btn-outline-danger">Cancel</a>
+    </div>
+  </div>
+</div>
+<br><br><br>

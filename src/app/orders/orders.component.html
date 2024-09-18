@@ -1,1 +1,72 @@
-<p>orders works!</p>
+<h1 class="text-center mb-4 text-white orders-header">All Orders</h1>
+
+<div class="container">
+
+  <hr class="my-3">
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>User</th>
+        <th>Products</th>
+        <th>Address</th>
+        <th>Delivered</th>
+        <th>Paid</th>
+        <th>Payment Method</th>
+        <th>Total Price</th>
+        <th>Buttons</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(order of orders; track order._id){
+      <tr>
+        <td>{{$index +1}}</td>
+        <td>{{order?.user?.name}}</td>
+        <td>
+          @for(item of order.cartItems; track item._id){
+          <div class="product-item">
+            <img class="product-img" [src]="productCover+item?.product?.cover" [alt]="item?.product?.name">
+            <span class="product-name">{{item?.product?.name}} | Quantity: {{item.quantity}}</span>
+          </div>
+          }
+        </td>
+        <td>{{order.address}}</td>
+        <td>
+          <span class="status-badge" [ngClass]="{'status-yes': order.isDelivered, 'status-no': !order.isDelivered}">
+            @if(order.isDelivered){Yes}@else{No}
+          </span>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="{'status-yes': order.isPaid, 'status-no': !order.isPaid}">
+            @if(order.isPaid){Yes}@else{No}
+          </span>
+        </td>
+        <td>{{order.paymentMethod}}</td>
+        <td>{{order.totalPrice | currency}}</td>
+        <td><div class="d-flex justify-content-around">
+          <button [disabled]="order.isDelivered" (click)="setOrderDelivered(order._id)"
+            class="btn btn-primary btn-sm rounded-3 mx-1">
+            Deliver
+          </button>
+          <button [disabled]="order.isPaid" (click)="setOrderPaid(order._id)" class="btn btn-primary btn-sm rounded-3 mx-1">
+            Pay
+          </button>
+        </div></td>
+       
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls d-flex justify-content-center mt-4">
+  @if(pagination.currentPage !== 1){
+  <button (click)="changeNumberOfPage(pagination.currentPage! - 1)" class="btn btn-secondary mx-2">Previous</button>
+  }
+  <span class="page-info mx-2">Page {{pagination.currentPage}} of {{pagination.totalPages}}</span>
+  @if(pagination.next){
+  <button (click)="changeNumberOfPage(pagination.currentPage! + 1)" class="btn btn-secondary mx-2">Next</button>
+  }
+</div>
+<br>

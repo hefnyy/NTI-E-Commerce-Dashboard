@@ -41,7 +41,7 @@ export class AddSubcategoryComponent implements OnInit,OnDestroy {
     })
   }
   getAllCategories(){
-    this._CategoriesService.getCategories(100,undefined,'name','').subscribe({
+    this.categoriesSubscription = this._CategoriesService.getCategories(100,undefined,'name','').subscribe({
       next: (res) => {
         this.categories=res.data;
       }

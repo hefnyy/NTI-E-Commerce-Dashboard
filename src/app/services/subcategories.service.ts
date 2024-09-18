@@ -37,5 +37,9 @@ export class SubcategoriesService {
   deleteSubcategory(subcategoryId: string): Observable<any> {
     return this._HttpClient.delete(`${this.HostName}${this.RouteName}/${subcategoryId}`, { headers: { authorization: `Bearer ${localStorage.getItem('userToken')}` } })
   }
+
+  getSpecificSubcategories(categoryId: string, limit: number = 100, sort: string = 'name'): Observable<any> {
+    return this._HttpClient.get(`${this.HostName}${this._GlobalService.CategoriesRouteName}/${categoryId}/subcategory?limit=${limit}&sort=${sort}`)
+  }
 }
 

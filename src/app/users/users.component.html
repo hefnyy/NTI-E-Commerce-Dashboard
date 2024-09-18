@@ -1,1 +1,78 @@
-<p>users works!</p>
+<br><br><br>
+<div class="container w-75 m-auto shadow-lg p-4 bg-white rounded">
+  <h2 class="text-center my-4 text-primary">Manage Users</h2>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <a class="btn btn-outline-primary btn-sm" routerLink="create">Create User</a>
+    <div>
+      <button (click)="filterUsers('admin')" class="btn btn-outline-success btn-sm mx-1">View Admins</button>
+      <button (click)="filterUsers('user')" class="btn btn-outline-info btn-sm mx-1">View Users</button>
+    </div>
+    <input (change)="searchData(searchInput.value)" #searchInput class="form-control form-control-sm w-25" type="search"
+      placeholder="Search Users" aria-label="Search">
+  </div>
+
+  <table class="table table-hover text-center">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(user of users; track user._id){
+      <tr class="align-middle">
+        <td>{{$index + 1}}</td>
+        <td>{{user?._id | slice:-4}}</td>
+        <td>
+          <img class="rounded-circle mx-2" width="40px" height="40px" [src]="userImageDomain+user?.profileImage"
+            [alt]="user?.name">
+          {{user?.name}}
+        </td>
+        <td>{{user?.email}}</td>
+        <td>
+          <span class="badge" [ngClass]="{'bg-primary': user?.role === 'admin', 'bg-secondary': user?.role === 'user'}">
+            {{user?.role | uppercase}}
+          </span>
+        </td>
+        <td>
+          <span class="badge" [ngClass]="{'bg-success': user?.active, 'bg-danger': !user?.active}">
+            @if(user?.active) { Active } @else { Inactive }
+          </span>
+        </td>
+        <td>
+          <div class="d-flex justify-content-center">
+            <button [routerLink]="['/users',user._id]" class="btn btn-primary btn-sm mx-1">More
+              Details</button>
+            <button (click)="changeUserActive(user._id)" class="btn btn-warning btn-sm mx-1">Toggle Active</button>
+            <button (click)="deleteUser(user._id)" class="btn btn-danger btn-sm mx-1">Delete</button>
+          </div>
+        </td>
+      </tr>
+      }
+      @empty { <tr>
+        <td colspan="7">
+          <h5 class="text-muted">No users found.</h5>
+        </td>
+      </tr> }
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center mt-4">
+  @if(pagination.currentPage!==1){
+  <button (click)="changeNumberOfPage(pagination.currentPage!-1)" class="btn btn-secondary mx-2">Previous</button>
+  }
+  <span class="mx-2">Page {{pagination.currentPage}} of {{pagination.totalPages}} </span>
+
+  @if(pagination.next){
+  <button (click)="changeNumberOfPage(pagination.currentPage!+1)" class="btn btn-secondary mx-2">Next</button>
+  }
+</div>
+<br><br>

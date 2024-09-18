@@ -34,7 +34,7 @@
         <td></td>
         <td>{{category.createdAt|date}}</td>
         <td>
-                    <button [routerLink]="['/categories',category._id]"
+                    <button [routerLink]="['/categories',category._id,'update']"
                       class="btn btn-outline-light btn-sm rounded-3 mx-3">Update</button>
           <button (click)="deleteCategory(category._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
 

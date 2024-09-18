@@ -1,0 +1,63 @@
+<br>
+<div class="container mt-5">
+  <div class="w-50 m-auto shadow-lg p-5 bg-dark text-white rounded">
+    <h1 class="text-center mb-4 text-white">Update PromoCode "{{promoCode.name}}"</h1>
+    <form [formGroup]="promoCodeForm" (ngSubmit)="updatePromoCode(promoCode._id,promoCodeForm)">
+
+      <!-- PromoCode Name Input -->
+      <div class="mb-4">
+        <label for="promoCodeName" class="form-label text-light">PromoCode Name</label>
+        <input id="promoCodeName" formControlName="name" [value]="promoCode.name" class="form-control bg-dark text-white border-light"
+          type="text" placeholder="Enter promoCode name">
+        @if(promoCodeForm.get('name')?.errors!==null && promoCodeForm.get('name')?.touched){
+        <div class="mt-2">
+          @if(promoCodeForm.get('name')?.errors?.['required']){
+          <p class="text-danger">PromoCode name is required</p>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Discount Input -->
+      <div class="mb-4">
+        <label for="discount" class="form-label text-light">Discount (%)</label>
+        <input id="discount" [value]="promoCode.discount" formControlName="discount" class="form-control bg-dark text-white border-light"
+          type="number" placeholder="Enter discount value">
+        @if(promoCodeForm.get('discount')?.errors!==null && promoCodeForm.get('discount')?.touched){
+        <div class="mt-2">
+          @if(promoCodeForm.get('discount')?.errors?.['required']){
+          <p class="text-danger">Discount value is required</p>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Expire Time Input -->
+      <div class="mb-4">
+        <label for="expireTime" class="form-label text-light">Expire Time</label>
+        <input id="expireTime"  [value]="promoCode.expireTime" formControlName="expireTime" class="form-control bg-dark text-white border-light"
+          type="date">
+        @if(promoCodeForm.get('expireTime')?.errors!==null && promoCodeForm.get('expireTime')?.touched){
+        <div class="mt-2">
+          @if(promoCodeForm.get('expireTime')?.errors?.['required']){
+          <p class="text-danger">Expire time is required</p>
+          }
+        </div>
+        }
+        @if(promoCodeError!==''){
+        <div class="text-danger mt-3">
+          <p>{{promoCodeError}}</p>
+        </div>
+        }
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-4 d-flex justify-content-end">
+        <button [disabled]="promoCodeForm.invalid" class="btn btn-outline-info me-3">Update</button>
+        <a routerLink="/promocodes" class="btn btn-outline-danger">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+</div>
+<br><br><br>

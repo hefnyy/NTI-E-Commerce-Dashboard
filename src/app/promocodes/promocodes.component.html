@@ -1,1 +1,53 @@
-<p>promocodes works!</p>
+<h1></h1>
+<div style="background-color:#333;" class="container text-white py-4">
+  <h1 class="text-center mb-4 text-white" style="background-color:#333;">All PromoCodes</h1>
+  <hr class="my-3 border-light text-white">
+  <div class="d-flex justify-content-between">
+    <input (change)="searchData(input.value)" #input class="w-25 bg-dark form-control text-white" type="text"
+      placeholder="Search" aria-label="search">
+    <button [routerLink]="['create']" class="btn btn-outline-light btn-sm rounded-3 mx-3">Create PromoCode</button>
+  </div>
+  <hr class="my-3 border-light">
+  <table class="w-100 text-light">
+    <thead>
+      <tr class="border-bottom border-light">
+        <th>#</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Discount</th>
+        <th>Expire Time</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(promoCode of promoCodes; track promoCode._id){
+      <tr class="m-5 border-bottom border-light">
+        <td>{{$index+1}}</td>
+        <td>{{promoCode._id | slice:-4}}</td>
+        <td>{{promoCode.name}}</td>
+        <td>{{promoCode.discount}}%</td>
+        <td>{{promoCode.expireTime| date}}</td>
+        <td>{{promoCode.createdAt | date}}</td>
+        <td>
+          <button [routerLink]="['/promocodes',promoCode._id,'update']"
+            class="btn btn-outline-light btn-sm rounded-3 mx-3">Update</button>
+          <button (click)="deletePromoCode(promoCode._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
+
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center mt-4">
+  @if(pagination.currentPage!==1){
+  <button (click)="changeNumberOfPage(pagination.currentPage!-1)" class="btn btn-secondary mx-2">Previous</button>
+  }
+  <span class="mx-2">Page {{pagination.currentPage}} of {{pagination.totalPages}} </span>
+
+  @if(pagination.next){
+  <button (click)="changeNumberOfPage(pagination.currentPage!+1)" class="btn btn-secondary mx-2">Next</button>
+  }
+</div>

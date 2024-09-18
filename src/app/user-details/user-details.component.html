@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4 text-white" style="background-color:#333;">My Profile</h1>
+<h1 class="text-center mb-4 text-white" style="background-color:#333;">User Details</h1>
 
 <div class="user-info-container">
   <!-- Profile Section -->
@@ -15,17 +15,17 @@
         <input class="form-control" (change)="getFile($event)" type="file" accept="image/*">
       </div>
     </div>
-    <button (click)="updateUserData()" class="btn text-white bg-dark">Edit Profile</button>
+    <button (click)="updateUserInfo(user._id)" class="btn text-white bg-dark">Edit Profile</button>
   </div>
 
   <!-- Account Settings Section -->
   <div class="account-settings-section">
     <h2>Account Settings</h2>
-    <form [formGroup]="changePasswordForm" (ngSubmit)="changeUserPassword(changePasswordForm)">
+    <form [formGroup]="changePasswordForm" (ngSubmit)="changeUserPassword(user._id,changePasswordForm)">
       <div class="form-group">
         <label for="password">Current Password</label>
         <input formControlName="currentPassword" type="password" placeholder="Enter Current password">
-        @if(changePasswordForm.get('currentPassword')?.errors!==null&&changePasswordForm.get('currentPassword')?.touched&&currentPasswordError===''){
+        @if(changePasswordForm.get('currentPassword')?.errors!==null&&changePasswordForm.get('currentPassword')?.touched){
         <div class="text-danger ">
           @if(changePasswordForm.get('currentPassword')?.errors?.['required']){
           <p>Current Password is Required</p> }
@@ -33,12 +33,6 @@
           {<p>Current Password must be between 6,20</p> }
         </div>
         }
-        @if(currentPasswordError!==''){
-        <div class="text-danger ">
-          <p>{{currentPasswordError}}</p>
-        </div>
-        }
-
       </div>
       <div class="form-group">
         <label for="password">Change Password</label>
@@ -56,7 +50,7 @@
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
         <input formControlName="confirmPassword" type="password" placeholder="Confirm new password">
-        @if(changePasswordForm.get('confirmPassword')?.errors!==null&&changePasswordForm.get('confirmPassword')?.touched&&passwordError===''){
+        @if(changePasswordForm.get('confirmPassword')?.errors!==null&&changePasswordForm.get('confirmPassword')?.touched){
         <div class="text-danger ">
           @if(changePasswordForm.get('confirmPassword')?.errors?.['required']){
           <p>Confirm Password is Required</p> }
@@ -64,12 +58,6 @@
           {<p>Confirm Password must be between 6,20</p> }
         </div>
         }
-        @if(passwordError!==''){
-        <div class="text-danger ">
-          <p>{{passwordError}}</p>
-        </div>
-        }
-
       </div>
 
       <button [disabled]="changePasswordForm.invalid" class="btn text-white bg-dark">Save Changes</button>

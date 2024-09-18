@@ -1,1 +1,65 @@
-<p>products works!</p>
+<h1 class="text-center mb-4 text-white orders-header">All Products</h1>
+
+<div class="container">
+<div class="d-flex justify-content-between">
+  <input (change)="searchData(input.value)" #input class="w-25  form-control text-blacke" type="text"
+    placeholder="Search" aria-label="search">
+  <button [routerLink]="['create']" class="btn  btn-primary rounded-3 mx-3">Create Product</button>
+</div>
+  <hr class="my-3">
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Products</th>
+        <th>Name</th>
+        <th>Subcategory</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Sold</th>
+        <th>Buttons</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(product of products; track product._id){
+      <tr>
+        <td>{{$index + 1}}</td>
+        <td>{{product._id|slice:-4}}</td>
+        <td>
+            <img class="product-img" [src]="productsCoverDomain+product?.cover" [alt]="product?.name">
+        </td>
+        <td>{{product.name}}</td>
+        <td>
+          {{product.subcategory.name}}
+        </td>
+        <td>
+        {{product.category.name}}
+        </td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price | currency}}</td>
+        <td>{{product.sold}}</td>
+        <td>
+          <button [routerLink]="['/products',product._id,'update']"
+          class="btn btn-primary btn-sm rounded-3 mx-3">Update</button>
+          <button (click)="deleteProduct(product._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
+                
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls d-flex justify-content-center mt-4">
+  @if(pagination.currentPage !== 1){
+  <button (click)="changeNumberOfPage(pagination.currentPage! - 1)" class="btn btn-secondary mx-2">Previous</button>
+  }
+  <span class="page-info mx-2">Page {{pagination.currentPage}} of {{pagination.totalPages}}</span>
+  @if(pagination.next){
+  <button (click)="changeNumberOfPage(pagination.currentPage! + 1)" class="btn btn-secondary mx-2">Next</button>
+  }
+</div>
+<br>
